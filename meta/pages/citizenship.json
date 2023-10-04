@@ -1,0 +1,893 @@
+{
+  "components": [
+    {
+      "type": "content",
+      "container": "main",
+      "components": [
+        {
+          "type": "heading",
+          "name": "pageTitle",
+          "size": "H1",
+          "text": "Citizenship"
+        },
+        {
+          "type": "row",
+          "style": {
+            "height": "100%"
+          },
+          "components": [
+            {
+              "type": "col",
+              "class": "col-md-6",
+              "components": [
+                {
+                  "type": "card",
+                  "style": {
+                    "height": "100%"
+                  },
+                  "components": [
+                    {
+                      "icon": "add_circle_outline",
+                      "name": "button0",
+                      "style": {
+                        "marginBottom": "10px"
+                      },
+                      "text": "Add",
+                      "type": "button",
+                      "events": {
+                        "click": [
+                          {
+                            "name": "citizenship",
+                            "type": "set",
+                            "value": "new B.Models.B1.Citizenship()",
+                            "valueType": "B.Models.B1.Citizenship",
+                            "then": [
+                              {
+                                "code": "await grid0.Reload();",
+                                "type": "execute"
+                              },
+                              {
+                                "code": "await InvokeAsync(() => { StateHasChanged(); });",
+                                "type": "execute"
+                              }
+                            ]
+                          },
+                          {
+                            "name": "isEdit",
+                            "type": "set",
+                            "value": "false",
+                            "valueType": "bool"
+                          }
+                        ]
+                      }
+                    },
+                    {
+                      "name": "grid0",
+                      "allowFiltering": true,
+                      "filterMode": "advanced",
+                      "allowPaging": true,
+                      "allowSorting": true,
+                      "data": "${getCitizenshipsResult}",
+                      "events": {
+                        "loadData": [],
+                        "rowSelect": [
+                          {
+                            "name": "isEdit",
+                            "type": "set",
+                            "value": "true",
+                            "valueType": "bool"
+                          },
+                          {
+                            "name": "citizenship",
+                            "type": "set",
+                            "value": "${event}",
+                            "valueType": "B.Models.B1.Citizenship"
+                          }
+                        ]
+                      },
+                      "title": "",
+                      "columns": [
+                        {
+                          "property": "ID",
+                          "title": "ID"
+                        },
+                        {
+                          "property": "Name",
+                          "title": "Name"
+                        },
+                        {
+                          "property": "Birthplace",
+                          "title": "Birthplace"
+                        },
+                        {
+                          "property": "District",
+                          "title": "District"
+                        },
+                        {
+                          "property": "Ward",
+                          "title": "Ward"
+                        },
+                        {
+                          "property": "Birthdate",
+                          "title": "Birthdate"
+                        },
+                        {
+                          "property": "FatherName",
+                          "title": "Father Name"
+                        },
+                        {
+                          "property": "Address",
+                          "title": "Address"
+                        },
+                        {
+                          "property": "CitizenshipNumber",
+                          "title": "Citizenship Number"
+                        },
+                        {
+                          "property": "PermanentAddrress",
+                          "title": "Permanent Addrress"
+                        },
+                        {
+                          "property": "Gender",
+                          "title": "Gender"
+                        },
+                        {
+                          "property": "CitizenshipRegisterDate",
+                          "title": "Citizenship Register Date"
+                        },
+                        {
+                          "filterable": false,
+                          "sortable": false,
+                          "width": "70px",
+                          "textAlign": "center",
+                          "template": [
+                            {
+                              "attributes": [
+                                {
+                                  "name": "@onclick:stopPropagation",
+                                  "value": true
+                                }
+                              ],
+                              "buttonStyle": "danger",
+                              "icon": "close",
+                              "name": "gridDeleteButton",
+                              "text": "",
+                              "size": "sm",
+                              "type": "button",
+                              "events": {
+                                "click": [
+                                  {
+                                    "condition": "await DialogService.Confirm(\"Are you sure you want to delete this record?\") == true",
+                                    "error": [
+                                      {
+                                        "detail": "Unable to delete Citizenship",
+                                        "severity": "error",
+                                        "summary": "Error",
+                                        "type": "notify"
+                                      }
+                                    ],
+                                    "name": "b1.deleteCitizenship",
+                                    "parameters": [
+                                      {
+                                        "name": "ID",
+                                        "value": "${data.ID}"
+                                      }
+                                    ],
+                                    "then": [
+                                      {
+                                        "code": "await grid0.Reload();",
+                                        "condition": "result != null",
+                                        "type": "execute"
+                                      }
+                                    ],
+                                    "type": "invoke"
+                                  }
+                                ]
+                              }
+                            }
+                          ]
+                        }
+                      ],
+                      "type": "datagrid",
+                      "itemType": "B.Models.B1.Citizenship",
+                      "columnWidth": "150px"
+                    }
+                  ]
+                }
+              ]
+            },
+            {
+              "type": "col",
+              "class": "col-md-6",
+              "components": [
+                {
+                  "type": "card",
+                  "components": [
+                    {
+                      "type": "row",
+                      "components": [
+                        {
+                          "type": "col",
+                          "class": "col-md-12",
+                          "components": [
+                            {
+                              "type": "template-form",
+                              "name": "form0",
+                              "components": [
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Id",
+                                          "component": "ID",
+                                          "name": "IDLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "int",
+                                          "type": "numeric",
+                                          "name": "ID",
+                                          "style": {
+                                            "display": "block",
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.ID}"
+                                        },
+                                        {
+                                          "type": "required-validator",
+                                          "name": "IDRequiredValidator",
+                                          "component": "ID",
+                                          "text": "ID is required",
+                                          "style": {
+                                            "position": "absolute"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Name",
+                                          "component": "Name",
+                                          "name": "NameLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "Name",
+                                          "style": {
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.Name}"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Birthplace",
+                                          "component": "Birthplace",
+                                          "name": "BirthplaceLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "Birthplace",
+                                          "style": {
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.Birthplace}"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "District",
+                                          "component": "District",
+                                          "name": "DistrictLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "District",
+                                          "style": {
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.District}"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Ward",
+                                          "component": "Ward",
+                                          "name": "WardLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "int",
+                                          "type": "numeric",
+                                          "name": "Ward",
+                                          "style": {
+                                            "display": "block",
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.Ward}"
+                                        },
+                                        {
+                                          "type": "required-validator",
+                                          "name": "WardRequiredValidator",
+                                          "component": "Ward",
+                                          "text": "Ward is required",
+                                          "style": {
+                                            "position": "absolute"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Birthdate",
+                                          "component": "Birthdate",
+                                          "name": "BirthdateLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "Birthdate",
+                                          "style": {
+                                            "display": "block",
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.Birthdate}"
+                                        },
+                                        {
+                                          "type": "required-validator",
+                                          "name": "BirthdateRequiredValidator",
+                                          "component": "Birthdate",
+                                          "text": "Birthdate is required",
+                                          "style": {
+                                            "position": "absolute"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Father Name",
+                                          "component": "FatherName",
+                                          "name": "FatherNameLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "FatherName",
+                                          "style": {
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.FatherName}"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Address",
+                                          "component": "Address",
+                                          "name": "AddressLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "Address",
+                                          "style": {
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.Address}"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Citizenship Number",
+                                          "component": "CitizenshipNumber",
+                                          "name": "CitizenshipNumberLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "int",
+                                          "type": "numeric",
+                                          "name": "CitizenshipNumber",
+                                          "style": {
+                                            "display": "block",
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.CitizenshipNumber}"
+                                        },
+                                        {
+                                          "type": "required-validator",
+                                          "name": "CitizenshipNumberRequiredValidator",
+                                          "component": "CitizenshipNumber",
+                                          "text": "CitizenshipNumber is required",
+                                          "style": {
+                                            "position": "absolute"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Permanent Addrress",
+                                          "component": "PermanentAddrress",
+                                          "name": "PermanentAddrressLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "PermanentAddrress",
+                                          "style": {
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.PermanentAddrress}"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Gender",
+                                          "component": "Gender",
+                                          "name": "GenderLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "Gender",
+                                          "style": {
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.Gender}"
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "style": {
+                                    "marginBottom": "1rem"
+                                  },
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-3",
+                                      "components": [
+                                        {
+                                          "type": "label",
+                                          "text": "Citizenship Register Date",
+                                          "component": "CitizenshipRegisterDate",
+                                          "name": "CitizenshipRegisterDateLabel",
+                                          "style": {
+                                            "width": "100%"
+                                          }
+                                        }
+                                      ]
+                                    },
+                                    {
+                                      "type": "col",
+                                      "class": "col-md-9",
+                                      "components": [
+                                        {
+                                          "valueType": "string",
+                                          "type": "textbox",
+                                          "name": "CitizenshipRegisterDate",
+                                          "style": {
+                                            "display": "block",
+                                            "width": "100%"
+                                          },
+                                          "value": "${citizenship.CitizenshipRegisterDate}"
+                                        },
+                                        {
+                                          "type": "required-validator",
+                                          "name": "CitizenshipRegisterDateRequiredValidator",
+                                          "component": "CitizenshipRegisterDate",
+                                          "text": "CitizenshipRegisterDate is required",
+                                          "style": {
+                                            "position": "absolute"
+                                          }
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                },
+                                {
+                                  "type": "row",
+                                  "components": [
+                                    {
+                                      "type": "col",
+                                      "class": "col offset-sm-3",
+                                      "components": [
+                                        {
+                                          "type": "button",
+                                          "buttonType": "submit",
+                                          "icon": "save",
+                                          "text": "Save",
+                                          "buttonStyle": "primary"
+                                        },
+                                        {
+                                          "type": "button",
+                                          "buttonStyle": "light",
+                                          "style": {
+                                            "marginLeft": "1rem"
+                                          },
+                                          "text": "Cancel",
+                                          "events": {},
+                                          "visible": false
+                                        }
+                                      ]
+                                    }
+                                  ]
+                                }
+                              ],
+                              "events": {
+                                "submit": [
+                                  {
+                                    "error": [
+                                      {
+                                        "detail": "Unable to update Citizenship",
+                                        "severity": "error",
+                                        "summary": "Error",
+                                        "type": "notify"
+                                      },
+                                      {
+                                        "name": "hasChanges",
+                                        "type": "set",
+                                        "value": "result is DbUpdateConcurrencyException",
+                                        "valueType": "bool"
+                                      }
+                                    ],
+                                    "name": "b1.updateCitizenship",
+                                    "parameters": [
+                                      {
+                                        "name": "ID",
+                                        "value": "${citizenship.ID}"
+                                      },
+                                      {
+                                        "name": "Citizenship",
+                                        "value": "${citizenship}"
+                                      }
+                                    ],
+                                    "then": [
+                                      {
+                                        "detail": "Citizenship updated!",
+                                        "severity": "success",
+                                        "summary": "Success",
+                                        "type": "notify"
+                                      },
+                                      {}
+                                    ],
+                                    "type": "invoke",
+                                    "condition": "${isEdit}"
+                                  },
+                                  {
+                                    "error": [
+                                      {
+                                        "detail": "Unable to create new Citizenship!",
+                                        "severity": "error",
+                                        "summary": "Error",
+                                        "type": "notify"
+                                      }
+                                    ],
+                                    "condition": "${!this.isEdit}",
+                                    "name": "b1.createCitizenship",
+                                    "parameters": [
+                                      {
+                                        "name": "Citizenship",
+                                        "value": "${event}"
+                                      }
+                                    ],
+                                    "then": [
+                                      {
+                                        "name": "citizenship",
+                                        "type": "set",
+                                        "value": "new B.Models.B1.Citizenship()",
+                                        "valueType": "B.Models.B1.Citizenship"
+                                      },
+                                      {
+                                        "detail": "Citizenship created!",
+                                        "severity": "success",
+                                        "summary": "Success",
+                                        "type": "notify"
+                                      }
+                                    ],
+                                    "type": "invoke"
+                                  }
+                                ]
+                              },
+                              "itemType": "B.Models.B1.Citizenship",
+                              "data": "${citizenship}",
+                              "visible": "${citizenship != null && canEdit}"
+                            }
+                          ]
+                        }
+                      ]
+                    }
+                  ],
+                  "style": {
+                    "height": "100%"
+                  }
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  "events": {
+    "load": [
+      {
+        "name": "hasChanges",
+        "type": "set",
+        "value": "false",
+        "valueType": "bool"
+      },
+      {
+        "name": "canEdit",
+        "type": "set",
+        "value": "true",
+        "valueType": "bool"
+      },
+      {
+        "name": "b1.getCitizenships",
+        "parameters": [],
+        "then": [
+          {
+            "name": "getCitizenshipsResult",
+            "type": "set",
+            "value": "${result}",
+            "valueType": "IEnumerable<B.Models.B1.Citizenship>"
+          },
+          {
+            "name": "citizenship",
+            "type": "set",
+            "value": "result.FirstOrDefault()",
+            "valueType": "B.Models.B1.Citizenship"
+          },
+          {
+            "name": "isEdit",
+            "type": "set",
+            "value": "true",
+            "valueType": "bool"
+          }
+        ],
+        "type": "invoke"
+      }
+    ]
+  },
+  "name": "Citizenship",
+  "layout": "Main",
+  "access": [
+    "Authenticated"
+  ]
+}

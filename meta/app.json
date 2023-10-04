@@ -1,0 +1,51 @@
+{
+  "dataSources": [
+    "b1"
+  ],
+  "generator": "@radzen/blazor-server",
+  "https": false,
+  "layouts": [
+    "Login",
+    "Main"
+  ],
+  "logo": "",
+  "name": "b",
+  "navigation": [
+    "Citizenship"
+  ],
+  "pages": [
+    "Citizenship",
+    "Login",
+    "Add Application Role",
+    "Add Application User",
+    "Application Users",
+    "Register Application User",
+    "Profile",
+    "Edit Application User",
+    "Application Roles",
+    "Unauthorized",
+    "Add Citizenship1",
+    "Edit Citizenship1"
+  ],
+  "security": {
+    "autoGeneratePages": true,
+    "dataSource": "b1",
+    "duration": 5,
+    "emailConfirmation": false,
+    "layout": "Login",
+    "loginLayout": "Login",
+    "loginPage": "Login",
+    "provider": "default",
+    "sessionRefresh": false,
+    "smtpFrom": "",
+    "smtpPassword": "",
+    "smtpSSL": false,
+    "smtpServer": "",
+    "smtpUser": ""
+  },
+  "serverLang": "cs",
+  "serverProject": true,
+  "serverVersion": "7",
+  "startPage": "Citizenship",
+  "theme": "standard"
+}

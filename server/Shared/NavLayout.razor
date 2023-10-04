@@ -1,0 +1,48 @@
+﻿@inherits B.Layouts.NavLayoutComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using B.Models.B1
+@using Microsoft.AspNetCore.Identity;
+@using B.Models
+@using B.Pages
+<RadzenDialog />
+<RadzenNotification />
+<RadzenTooltip />
+<RadzenContextMenu />
+
+<RadzenLayout>
+  <ChildContent>
+    <RadzenHeader>
+      <ChildContent>
+        <div class="row justify-content-start align-items-center">
+          <div class="col-md-6 d-flex align-items-center" style="padding-left: 30px">
+            <RadzenLabel Text="b">
+            </RadzenLabel>
+            <RadzenMenu style=@($"height: 50px;flex: auto")>
+              <ChildContent>
+                <RadzenMenuItem Text="Citizenship" Path="citizenship" Visible="@Security.IsInRole(new string[]{"Authenticated"})">
+                </RadzenMenuItem>
+              </ChildContent>
+            </RadzenMenu>
+          </div>
+          <div class="col-md-6 text-lg-right">
+          </div>
+        </div>
+      </ChildContent>
+    </RadzenHeader>
+    <RadzenBody @ref="body0" style="margin-top: 58px; margin-left: 0px">
+      <ChildContent>
+        <RadzenContentContainer Name="main">
+        @Body
+        </RadzenContentContainer>
+      </ChildContent>
+    </RadzenBody>
+    <RadzenFooter>
+      <ChildContent>
+        <RadzenLabel Text="b, Copyright Ⓒ 2023">
+        </RadzenLabel>
+      </ChildContent>
+    </RadzenFooter>
+  </ChildContent>
+</RadzenLayout>

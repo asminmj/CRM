@@ -1,0 +1,240 @@
+{
+  "info": {
+    "title": "b1",
+    "x-type": "odata",
+    "x-connector": "sqlite",
+    "x-concurrency": true
+  },
+  "definitions": {
+    "Citizenship": {
+      "x-table": "dbo.Citizenship",
+      "resource": "Citizenships",
+      "required": [
+        "ID",
+        "Ward",
+        "Birthdate",
+        "CitizenshipNumber",
+        "CitizenshipRegisterDate"
+      ],
+      "properties": {
+        "ID": {
+          "x-key": true,
+          "x-nullable": false,
+          "type": "integer"
+        },
+        "Name": {
+          "type": "string"
+        },
+        "Birthplace": {
+          "type": "string"
+        },
+        "District": {
+          "type": "string"
+        },
+        "Ward": {
+          "x-nullable": false,
+          "type": "integer"
+        },
+        "Birthdate": {
+          "x-nullable": false,
+          "type": "string"
+        },
+        "FatherName": {
+          "type": "string"
+        },
+        "Address": {
+          "type": "string"
+        },
+        "CitizenshipNumber": {
+          "x-nullable": false,
+          "type": "integer"
+        },
+        "PermanentAddrress": {
+          "type": "string"
+        },
+        "Gender": {
+          "type": "string"
+        },
+        "CitizenshipRegisterDate": {
+          "x-nullable": false,
+          "type": "string"
+        }
+      }
+    }
+  },
+  "paths": {
+    "/Citizenships": {
+      "get": {
+        "operationId": "getCitizenships",
+        "parameters": [
+          {
+            "in": "query",
+            "name": "$filter",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$orderby",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$expand",
+            "type": "string"
+          },
+          {
+            "in": "query",
+            "name": "$top",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$skip",
+            "type": "integer"
+          },
+          {
+            "in": "query",
+            "name": "$format",
+            "type": "string"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "properties": {
+                "value": {
+                  "items": {
+                    "$ref": "#/definitions/Citizenship"
+                  },
+                  "type": "array"
+                }
+              },
+              "type": "object"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "post": {
+        "operationId": "createCitizenship",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Citizenship",
+            "schema": {
+              "$ref": "#/definitions/Citizenship"
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "schema": {
+              "$ref": "#/definitions/Citizenship"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    },
+    "/Citizenships({ID})": {
+      "delete": {
+        "operationId": "deleteCitizenship",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "get": {
+        "operationId": "getCitizenshipByID",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ID",
+            "type": "integer"
+          }
+        ],
+        "responses": {
+          "200": {
+            "schema": {
+              "$ref": "#/definitions/Citizenship"
+            }
+          },
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "patch": {
+        "operationId": "updateCitizenship",
+        "parameters": [
+          {
+            "in": "path",
+            "name": "ID",
+            "type": "integer"
+          },
+          {
+            "in": "body",
+            "name": "Citizenship",
+            "schema": {
+              "$ref": "#/definitions/Citizenship"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      },
+      "cancel": {
+        "operationId": "cancelCitizenshipChanges",
+        "parameters": [
+          {
+            "in": "body",
+            "name": "Citizenship",
+            "schema": {
+              "$ref": "#/definitions/Citizenship"
+            }
+          }
+        ],
+        "responses": {
+          "204": {},
+          "default": {
+            "schema": {
+              "$ref": "#/definitions/Error"
+            }
+          }
+        }
+      }
+    }
+  },
+  "basePath": "/odata/b1",
+  "host": "localhost:5000",
+  "schemes": [
+    "http"
+  ]
+}

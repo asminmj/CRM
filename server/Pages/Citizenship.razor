@@ -1,0 +1,215 @@
+﻿@page "/"
+@page "/citizenship"
+@layout MainLayout
+@inherits B.Pages.CitizenshipComponent
+
+@using Radzen
+@using Radzen.Blazor
+@using B.Models.B1
+@using Microsoft.AspNetCore.Identity;
+@using B.Models
+@using Microsoft.AspNetCore.Authorization
+@attribute [Authorize]
+<PageTitle>Citizenship</PageTitle>
+<RadzenContent Container="main">
+  <ChildContent>
+    <RadzenHeading Size="H1" Text="Citizenship">
+    </RadzenHeading>
+    <div style="height: 100%" class="row">
+      <div class="col-md-6">
+        <RadzenCard style="height: 100%">
+          <ChildContent>
+            <RadzenButton Icon="add_circle_outline" style="margin-bottom: 10px" Text="Add" Click="@Button0Click">
+            </RadzenButton>
+            <RadzenDataGrid @ref="grid0" AllowFiltering="true" FilterMode="Radzen.FilterMode.Advanced" AllowPaging="true" AllowSorting="true" Data="@getCitizenshipsResult" TItem="B.Models.B1.Citizenship" ColumnWidth="150px" RowSelect="@Grid0RowSelect">
+              <Columns>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="ID" Title="ID">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="Name" Title="Name">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="Birthplace" Title="Birthplace">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="District" Title="District">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="Ward" Title="Ward">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="Birthdate" Title="Birthdate">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="FatherName" Title="Father Name">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="Address" Title="Address">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="CitizenshipNumber" Title="Citizenship Number">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="PermanentAddrress" Title="Permanent Addrress">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="Gender" Title="Gender">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Property="CitizenshipRegisterDate" Title="Citizenship Register Date">
+                </RadzenDataGridColumn>
+                <RadzenDataGridColumn TItem="B.Models.B1.Citizenship" Filterable="false" Sortable="false" Width="70px" TextAlign="TextAlign.Center">
+                  <Template Context="bModelsB1Citizenship">
+                    <RadzenButton ButtonStyle="ButtonStyle.Danger" Icon="close" Size="ButtonSize.Small" Click="@((args) =>GridDeleteButtonClick(args, bModelsB1Citizenship))" @onclick:stopPropagation="true">
+                    </RadzenButton>
+                  </Template>
+                </RadzenDataGridColumn>
+              </Columns>
+            </RadzenDataGrid>
+          </ChildContent>
+        </RadzenCard>
+      </div>
+      <div class="col-md-6">
+        <RadzenCard style="height: 100%">
+          <ChildContent>
+            <div class="row">
+              <div class="col-md-12">
+                <RadzenTemplateForm TItem="B.Models.B1.Citizenship" Data="@citizenship" Visible="@(citizenship != null && canEdit)" Submit="@Form0Submit">
+                  <ChildContent>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Id" Component="ID" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenNumeric style="display: block; width: 100%" @bind-Value="@(citizenship.ID)" Name="ID">
+                        </RadzenNumeric>
+                        <RadzenRequiredValidator Component="ID" Text="ID is required" style="position: absolute">
+                        </RadzenRequiredValidator>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Name" Component="Name" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="width: 100%" @bind-Value="@(citizenship.Name)" Name="Name">
+                        </RadzenTextBox>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Birthplace" Component="Birthplace" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="width: 100%" @bind-Value="@(citizenship.Birthplace)" Name="Birthplace">
+                        </RadzenTextBox>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="District" Component="District" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="width: 100%" @bind-Value="@(citizenship.District)" Name="District">
+                        </RadzenTextBox>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Ward" Component="Ward" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenNumeric style="display: block; width: 100%" @bind-Value="@(citizenship.Ward)" Name="Ward">
+                        </RadzenNumeric>
+                        <RadzenRequiredValidator Component="Ward" Text="Ward is required" style="position: absolute">
+                        </RadzenRequiredValidator>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Birthdate" Component="Birthdate" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(citizenship.Birthdate)" Name="Birthdate">
+                        </RadzenTextBox>
+                        <RadzenRequiredValidator Component="Birthdate" Text="Birthdate is required" style="position: absolute">
+                        </RadzenRequiredValidator>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Father Name" Component="FatherName" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="width: 100%" @bind-Value="@(citizenship.FatherName)" Name="FatherName">
+                        </RadzenTextBox>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Address" Component="Address" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="width: 100%" @bind-Value="@(citizenship.Address)" Name="Address">
+                        </RadzenTextBox>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Citizenship Number" Component="CitizenshipNumber" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenNumeric style="display: block; width: 100%" @bind-Value="@(citizenship.CitizenshipNumber)" Name="CitizenshipNumber">
+                        </RadzenNumeric>
+                        <RadzenRequiredValidator Component="CitizenshipNumber" Text="CitizenshipNumber is required" style="position: absolute">
+                        </RadzenRequiredValidator>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Permanent Addrress" Component="PermanentAddrress" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="width: 100%" @bind-Value="@(citizenship.PermanentAddrress)" Name="PermanentAddrress">
+                        </RadzenTextBox>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Gender" Component="Gender" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="width: 100%" @bind-Value="@(citizenship.Gender)" Name="Gender">
+                        </RadzenTextBox>
+                      </div>
+                    </div>
+                    <div style="margin-bottom: 1rem" class="row">
+                      <div class="col-md-3">
+                        <RadzenLabel Text="Citizenship Register Date" Component="CitizenshipRegisterDate" style="width: 100%">
+                        </RadzenLabel>
+                      </div>
+                      <div class="col-md-9">
+                        <RadzenTextBox style="display: block; width: 100%" @bind-Value="@(citizenship.CitizenshipRegisterDate)" Name="CitizenshipRegisterDate">
+                        </RadzenTextBox>
+                        <RadzenRequiredValidator Component="CitizenshipRegisterDate" Text="CitizenshipRegisterDate is required" style="position: absolute">
+                        </RadzenRequiredValidator>
+                      </div>
+                    </div>
+                    <div class="row">
+                      <div class="col offset-sm-3">
+                        <RadzenButton ButtonType="ButtonType.Submit" Icon="save" Text="Save" ButtonStyle="ButtonStyle.Primary">
+                        </RadzenButton>
+                        <RadzenButton ButtonStyle="ButtonStyle.Light" style="margin-left: 1rem" Text="Cancel" Visible="false">
+                        </RadzenButton>
+                      </div>
+                    </div>
+                  </ChildContent>
+                </RadzenTemplateForm>
+              </div>
+            </div>
+          </ChildContent>
+        </RadzenCard>
+      </div>
+    </div>
+  </ChildContent>
+</RadzenContent>
